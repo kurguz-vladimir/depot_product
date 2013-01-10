@@ -1,0 +1,88 @@
+Ñòðóêòóðèðîâàííûå
++ http://gotovim-doma.ru/view.php?r=975-recept-Kartofelnyi-salat-s-kopchenoi-skumbriei-i-iablokom
++ http://www.say7.info/cook/recipe/857-Zapekanka-s.html
+- http://cooking.wild-mistress.ru/wm/cooking.nsf/publicall/2012-04-12-1492238.html
++ http://www.gotovim.ru/recepts/salad/kalmary/30891.shtml
++ http://www.gastronom.ru/recipe.aspx?id=2157
++ http://www.koolinar.ru/recipe/view/58316
+- http://www.kedem.ru/recipe/dishes/veg/2012-05-04omlet/index.html
++ http://www.povarenok.ru/recipes/show/65767/
++ http://www.good-cook.ru/vtoroe/vtoroe_205.shtml
++ http://saechka.ru/recipes/recipe_5664
++ http://eda.ru/snack/recipe/7303/
++ http://www.pokushay.ru/2010/12/16/zakuska-maslinka.html
++ http://food.passion.ru/retsept-dnya-c-foto/ovoshchnye-blyuda/molodaya-zapechennaya-kartoshka.htm
++ http://povary.ru/recipes.php?id=8551
+- http://ovkuse.ru/id/22654/?utm_source=rate&utm_medium=category&utm_campaign=rate (îøèáêà)
++ http://povar.ru/recipes/imbirnoe_pechene_tradicionnoe-6662.html
+http://hlebopechka.ru/index.php?option=com_smf&Itemid=126&topic=170947.0 (îøèáêà)
++ http://vkysno.kiev.ua/d-recept-action-detail-rid-4122-log-no.html
+
+  http://smak.ua/ru/blog/user-1401897/recept-1433750/telyatina_medovaya.html
+
+//div[@class='sm-content-marked-box']
+//img[@class='result-photo captify']
+
+@html.css('h1#smLinkwayTitle').inner_text
+
+get_absolute_url @html.css('table.sm-stdblock .sm-stdblock-body img.result-photo.captify').attribute('src')
+
+if @html.css('.sm-content-marked-box table.sm-content-ingredients').empty?
+  recipe = @html.css('.sm-content-marked-box').last.children
+  ingredients = ''
+  write = 0
+  recipe.each do |ingr|
+    write = 0 if ingr.attribute('class') == 'smw-shoplist'
+    ingredients += ingr.inner_text.strip if write > 0
+    write = 1 if ingr.inner_text == 'Ингредиенты'  
+  end
+
+  ingredients
+end
+
+- http://www.delishis.ru/recipes/meat/meat_4083.html( непонятно с ингредиентами
+//div[@class='recipe_center_bl']/div[@itemtype='http://data-vocabulary.org/Recipe']/div[@class='preparat']/div[@itemprop='instructions']
+//div[@class='recipe_center_bl']/div[@itemtype='http://data-vocabulary.org/Recipe']/div[@class='prod_bl']
+//div[@class='recipe_center_bl']/div[@itemtype='http://data-vocabulary.org/Recipe']/h1[@itemprop='name']
+
+@html.css('.recipe_center_bl div[itemtype="http://data-vocabulary.org/Recipe"] h1[itemprop="name"]').inner_text
+
+----------
+
+get_absolute_url @html.css('.recipe_center_bl div[itemtype="http://data-vocabulary.org/Recipe"] .big_photo img').first.attribute('src')
+
+------------
+recipe = @html.css('.recipe_center_bl div[itemtype="http://data-vocabulary.org/Recipe"] .preparat div[itemprop="instructions"]').children
+steps = []
+text = ''
+
+recipe.each do |step|
+  text += step.inner_text.strip unless step.inner_text.empty?
+  unless step.css('img').empty?
+    steps << { :text => text,
+      :photo_url => ('http://www.delishis.ru' + step.css('img').first.attribute('src').inner_text) }
+    text = ''
+  end
+end
+
+if steps.empty?
+  steps << { :text => text, :photo_url => nil }
+end
+
+steps
+------------
+
+
+
+)
++ http://www.pechenuka.ru/#ajax/recipes/beze-klassika-zhanra-recept (без категорий, времени приготовления и порцый)
++ http://www.cook-master.ru/item/930/
++ http://vsemvkusno.ru/recipes/view/1681 (есть рецепты без картинок)
+- http://www.kyxarka.ru/news/1436.html
++ http://cookorama.net/uk/blog/bulochky/syrni-rogalyky-z-gorihovo-troyandovym-varennyam.html(без описания и шагов приготовления)
++ http://www.rezepty.ru/node/219/salat-letnij
+- http://vtarelke.com/recipe/1813 (unknown encoding name - cp-1251;)
++ http://vpuzo.ru/vypechka/pirogi/2836-grushevo-yablochnyy-pirog-s-koricey.html (без шагов приготовления)
++ http://www.russianfood.com/recipes/recipe.php?rid=118860 (без описания и категорий)
++ http://zefira.net/ris-v-tomatnom-soke-s-pomidorami/
+- http://www.domashniy.ru/article/eda/recepty/zapekanka_iz_hleba_s_revenem.html
