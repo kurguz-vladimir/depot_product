@@ -1,0 +1,2 @@
+class OnlineTestingError < StandardError
+end
