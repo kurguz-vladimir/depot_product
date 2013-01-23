@@ -1,2 +1,0 @@
-class OnlineTestingError < StandardError
-end
